@@ -2,7 +2,7 @@
 
 namespace App\Customer\Repositories;
 
-use App\Domain\Customer\Models\Customer;
+use Domain\Customer\Models\Customer;
 use Domain\Customer\ValueObjects\CustomerData;
 use Domain\Customer\Repositories\CustomerContract;
 use Illuminate\Support\Facades\DB;

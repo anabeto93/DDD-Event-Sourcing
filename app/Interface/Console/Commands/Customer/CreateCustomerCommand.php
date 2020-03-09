@@ -13,7 +13,7 @@ class CreateCustomerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'customer:create {--first_name= : The customer first name} {--last_name= : The customer last name} {--email= : The customer\'s email} {--phone_number= : The customer\'s phone number.} {--customer= : The customer details array}';
+    protected $signature = 'customer:create {--first_name= : The customer first name} {--last_name= : The customer last name} {--email= : The customer\'s email} {--phone_number= : The customer\'s phone number.} {--customer= : The customer details object.}';
 
     /**
      * The console command description.
@@ -46,7 +46,7 @@ class CreateCustomerCommand extends Command
      */
     public function handle()
     {
-        $customer = $this->option('customer');
+        $customer = json_decode($this->option('customer'), true);
 
         if (!$customer || !is_array($customer)) {
             $customer = [];
@@ -55,7 +55,6 @@ class CreateCustomerCommand extends Command
             $customer['email'] = $this->option('email') ?: $this->ask('Enter Email: ');
             $customer['phone_number'] = $this->option('phone_number') ?: $this->ask('Enter Phone number: ');
         }
-
         //validate the customer object
         $validator = Validator::make($customer, [
             'first_name' => ['bail','required','string','min:3'],
@@ -77,5 +76,7 @@ class CreateCustomerCommand extends Command
         $newC = new CustomerData($customer);
 
         $this->customer->create($newC);
+
+        $this->info('Customer Created.');
     }
 }
