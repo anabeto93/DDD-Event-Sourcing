@@ -15,10 +15,11 @@
         "kitetail/zttp": "^0.6.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "pda/pheanstalk": "~4.0",
-        "spatie/data-transfer-object": "^1.13",
         "moontoast/math": "^1.2",
-        "ramsey/uuid": "^3.9"
+        "pda/pheanstalk": "~4.0",
+        "ramsey/uuid": "^3.9",
+        "spatie/data-transfer-object": "^1.13",
+        "spatie/laravel-event-sourcing": "^3.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
