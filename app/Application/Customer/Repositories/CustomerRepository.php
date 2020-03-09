@@ -6,6 +6,7 @@ use Domain\Customer\Models\Customer;
 use Domain\Customer\ValueObjects\CustomerData;
 use Domain\Customer\Repositories\CustomerContract;
 use Illuminate\Support\Facades\DB;
+use App\Events\Customer\CustomerCreatedEvent as CustomerCreated;
 
 class CustomerRepository implements CustomerContract
 {
@@ -26,5 +27,7 @@ class CustomerRepository implements CustomerContract
         }
 
         DB::commit();
+
+        event(new CustomerCreated($nc));
     }
 }
