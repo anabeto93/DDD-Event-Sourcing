@@ -4,6 +4,7 @@ namespace Interfaces\Console\Commands\Customer;
 
 use Domain\Customer\ValueObjects\CustomerData;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Validator;
 
 class CreateCustomerCommand extends Command
 {
@@ -12,7 +13,7 @@ class CreateCustomerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'customer:create {--customer= : The customer details array ?}';
+    protected $signature = 'customer:create {--first_name= : The customer first name} {--last_name= : The customer last name} {--email= : The customer\'s email} {--phone_number= : The customer\'s phone number.} {--customer= : The customer details array}';
 
     /**
      * The console command description.
@@ -49,14 +50,32 @@ class CreateCustomerCommand extends Command
 
         if (!$customer || !is_array($customer)) {
             $customer = [];
-            $customer['first_name'] = $this->ask('Enter first name: ');
-            $customer['last_name'] = $this->ask('Enter last name: ');
-            $customer['email'] = $this->ask('Enter email: ');
-            $customer['phone_number'] = $this->ask('Enter Phone number: ');
+            $customer['first_name'] = $this->option('first_name') ?: $this->ask('Enter First name: ');
+            $customer['last_name'] = $this->option('last_name') ?: $this->ask('Enter Last name: ');
+            $customer['email'] = $this->option('email') ?: $this->ask('Enter Email: ');
+            $customer['phone_number'] = $this->option('phone_number') ?: $this->ask('Enter Phone number: ');
+        }
+
+        //validate the customer object
+        $validator = Validator::make($customer, [
+            'first_name' => ['bail','required','string','min:3'],
+            'last_name' => ['bail', 'required', 'string', 'min:3'],
+            'email' => ['bail', 'required', 'email', 'unique:customers,email'],
+            'phone_number' => ['bail', 'required', 'digits_between:10,12'],
+        ]);
+
+        if ($validator->fails()) {
+            $this->info('Customer not created. See error messages below:');
+        
+            foreach ($validator->errors()->all() as $error) {
+                $this->error($error);
+            }
+
+            return 1;
         }
 
         $newC = new CustomerData($customer);
 
-        dd($newC);
+        $this->customer->create($newC);
     }
 }
