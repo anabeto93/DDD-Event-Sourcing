@@ -12,10 +12,13 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
+        "kitetail/zttp": "^0.6.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "pda/pheanstalk": "~4.0",
-        "spatie/data-transfer-object": "^1.13"
+        "spatie/data-transfer-object": "^1.13",
+        "moontoast/math": "^1.2",
+        "ramsey/uuid": "^3.9"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
@@ -45,6 +48,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/Application/helpers.php"
         ]
     },
     "autoload-dev": {
