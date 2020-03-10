@@ -26,10 +26,10 @@ class CustomerData extends DataTransferObject
     {
         return new self([
             'uuid' => $request->input('uuid'),
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'phone_number' => $request->input('phone_number'),
         ]);
     }
 }

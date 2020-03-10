@@ -16,7 +16,8 @@ class CustomerRepository implements CustomerContract
         DB::beginTransaction();
 
         try {
-            CustomerAggregateRoot::retrieve(Str::orderedUuid()->toString())->create($customer)->persist();    
+            $customer->uuid = Str::orderedUuid()->toString();
+            $croot = CustomerAggregateRoot::retrieve($customer->uuid)->create($customer)->persist();
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

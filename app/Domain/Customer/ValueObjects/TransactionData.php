@@ -7,7 +7,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class TransactionData extends DataTransferObject 
 {
-    /** @var string|null $customer_id */
+    /** @var string $customer_id */
     public $customer_id;
 
     /** @var int|null $id */

@@ -2,7 +2,7 @@
 
 namespace Domain\Customer\Projectors;
 
-use App\Domain\Customer\Models\Customer;
+use Domain\Customer\Models\Customer;
 use Domain\Customer\Events\CustomerCreatedEvent;
 use Domain\Customer\Events\TransactionAddedEvent;
 use Spatie\EventSourcing\Projectors\Projector;
@@ -10,6 +10,7 @@ use Spatie\EventSourcing\Projectors\ProjectsEvents;
 use App\Events\Customer\CustomerCreatedEvent as DomainCustomerCreated;
 use App\Events\Customer\CustomerActivatedEvent as DomainCustomerActivated;
 use Domain\Customer\Models\Transaction;
+use Domain\Customer\ValueObjects\CustomerData;
 
 class CustomerTransactionsProjector implements Projector
 {
@@ -18,7 +19,15 @@ class CustomerTransactionsProjector implements Projector
     public function onCustomerCreated(CustomerCreatedEvent $event) 
     {
         //this is where the customer is created
-        $customer = Customer::create($event->customer->toArray());
+        $props = [
+            'uuid' => $event->uuid,
+            'first_name' => $event->first_name,
+            'last_name' => $event->last_name,
+            'email' => $event->email,
+            'phone_number' => $event->phone_number,
+        ];
+
+        $customer = Customer::create($props);
         event(new DomainCustomerCreated($customer));//broadcast this upon creating the customer
     }
 

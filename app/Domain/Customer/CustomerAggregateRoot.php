@@ -11,14 +11,14 @@ use Spatie\EventSourcing\AggregateRoot;
 final class CustomerAggregateRoot extends AggregateRoot
 {
     public function create(CustomerData $customerData)
-    {dd(new CustomerCreatedEvent($customerData));
-        $this->recordThat(new CustomerCreatedEvent($customerData));
+    {
+        $this->recordThat(new CustomerCreatedEvent($customerData->uuid, $customerData->first_name, $customerData->last_name, $customerData->email, $customerData->phone_number));
 
         return $this;
     }
 
     public function addTransaction(TransactionData $transactionData) 
     {
-        $this->recordThat(new TransactionAddedEvent($transactionData, $this->uuid));
+        $this->recordThat(new TransactionAddedEvent($transactionData));
     }
 }
