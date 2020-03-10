@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Customer\CustomerCreatedEvent;
 use Support\SMS\SMSContract;
 
-class SendWelcomeSMS
+class SendWelcomeSMS implements ShouldQueue
 {
     /** @var SMSContract $sms */
     public $sms;
