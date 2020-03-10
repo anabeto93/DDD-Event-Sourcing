@@ -20,4 +20,16 @@ class CreateStoredEventsTable extends Migration
             $table->index('aggregate_uuid');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        if (app()->environment(['local', 'staging'])) {
+            Schema::dropIfExists('stored_events');
+        }
+    }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Customer\Repositories;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Domain\Customer\Models\Customer;
+use Domain\Customer\CustomerAggregateRoot;
 use Domain\Customer\ValueObjects\CustomerData;
 use Domain\Customer\Repositories\CustomerContract;
-use Illuminate\Support\Facades\DB;
-use App\Events\Customer\CustomerCreatedEvent as CustomerCreated;
 
 class CustomerRepository implements CustomerContract
 {
@@ -15,19 +16,24 @@ class CustomerRepository implements CustomerContract
         DB::beginTransaction();
 
         try {
-            $nc = new Customer();
-            $nc->first_name = $customer->first_name;
-            $nc->last_name = $customer->last_name;
-            $nc->email = $customer->email;
-            $nc->phone_number = $customer->phone_number;
-            $nc->save();
+            CustomerAggregateRoot::retrieve(Str::orderedUuid()->toString())->create($customer)->persist();    
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
 
         DB::commit();
+    }
 
-        event(new CustomerCreated($nc));
+    public function find($uuid) 
+    {
+        return CustomerAggregateRoot::retrieve($uuid);
+    }
+
+    public function findByEmail(string $email) 
+    {
+        $customer = Customer::where('email', $email)->first();
+
+        return CustomerAggregateRoot::retrieve($customer->uuid);
     }
 }
