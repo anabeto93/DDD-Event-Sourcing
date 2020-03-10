@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Domain\Customer\Models\Customer;
 use Domain\Customer\CustomerAggregateRoot;
 use Domain\Customer\ValueObjects\CustomerData;
+use Domain\Customer\ValueObjects\TransactionData;
 use Domain\Customer\Repositories\CustomerContract;
 
 class CustomerRepository implements CustomerContract
@@ -26,6 +27,21 @@ class CustomerRepository implements CustomerContract
         DB::commit();
     }
 
+    public function addTransaction(TransactionData $transaction): void
+    {
+        DB::beginTransaction();
+
+        try {
+            $customer = Customer::where('email', $transaction->customer_email)->orWhere('uuid', $transaction->customer_id)->firstOrFail();
+            $croot = CustomerAggregateRoot::retrieve($customer->uuid)->addTransaction($transaction)->persist();
+        } catch(\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+    }
+
     public function find($uuid) 
     {
         return CustomerAggregateRoot::retrieve($uuid);
@@ -33,7 +49,7 @@ class CustomerRepository implements CustomerContract
 
     public function findByEmail(string $email) 
     {
-        $customer = Customer::where('email', $email)->first();
+        $customer = Customer::where('email', $email)->firstOrFail();
 
         return CustomerAggregateRoot::retrieve($customer->uuid);
     }

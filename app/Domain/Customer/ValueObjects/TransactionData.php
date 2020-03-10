@@ -7,8 +7,11 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class TransactionData extends DataTransferObject 
 {
-    /** @var string $customer_id */
+    /** @var string|null $customer_id */
     public $customer_id;
+
+    /** @var string|null $customer_email */
+    public $customer_email;
 
     /** @var int|null $id */
     public $id;
@@ -26,6 +29,7 @@ class TransactionData extends DataTransferObject
     {
         return new self([
             'customer_id' => $request->input('customer_id'),
+            'customer_email' => $request->input('customer_email'),
             'id' => $request->input('id'),
             'amount' => $request->input('amount'),
             'currency' => $request->input('currency'),

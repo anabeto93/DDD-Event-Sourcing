@@ -3,6 +3,7 @@
 namespace Domain\Customer\Repositories;
 
 use Domain\Customer\ValueObjects\CustomerData;
+use Domain\Customer\ValueObjects\TransactionData;
 
 interface CustomerContract 
 {
@@ -25,4 +26,10 @@ interface CustomerContract
      * @return \Domain\Customer\CustomerAggregateRoot|null
      */
     public function findByEmail(string $email);
+
+    /**
+     * @param TransactionData $transaction
+     * @return void
+     */
+    public function addTransaction(TransactionData $transaction): void;
 }
