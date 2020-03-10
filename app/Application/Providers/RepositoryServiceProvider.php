@@ -13,6 +13,8 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //not necessarily a repository
+        $this->app->bind(\Support\SMS\SMSContract::class, \Support\SMS\InfoBipSMS::class);
         $this->app->bind(\Domain\Customer\Repositories\CustomerContract::class, \App\Customer\Repositories\CustomerRepository::class);
     }
 
