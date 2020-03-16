@@ -47,7 +47,7 @@ class CustomerTransactionsProjector implements Projector
         //make any other decisions regarding the transactions performed by the customer here
         $customer = Customer::uuid($event->customer_id);
 
-        if ($customer->transactions->count() == 1) { //that is their very first transaction
+        if ($customer->transactions->count() > 1) { //that is their very first transaction
             //activate the customer
             $customer->activated_at = now();
             $customer->save();
