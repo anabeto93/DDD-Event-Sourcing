@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         '\Interfaces\Console\Commands\Customer\CreateCustomerCommand',
+        '\Interfaces\Console\Commands\Customer\AddTransactionToCustomerCommand',
     ];
 
     /**

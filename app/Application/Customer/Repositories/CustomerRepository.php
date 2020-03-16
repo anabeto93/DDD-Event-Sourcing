@@ -33,6 +33,7 @@ class CustomerRepository implements CustomerContract
 
         try {
             $customer = Customer::where('email', $transaction->customer_email)->orWhere('uuid', $transaction->customer_id)->firstOrFail();
+            $transaction->customer_id = $customer->uuid;
             $croot = CustomerAggregateRoot::retrieve($customer->uuid)->addTransaction($transaction)->persist();
         } catch(\Exception $e) {
             DB::rollBack();

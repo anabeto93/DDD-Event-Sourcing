@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->string('customer_id');//uuid of customer
             $table->string('amount');
             $table->string('currency');
+            $table->string('timestamp');
             $table->timestamps();
         });
     }

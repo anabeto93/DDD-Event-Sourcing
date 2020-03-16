@@ -26,11 +26,16 @@ class Customer extends Model
     public function addTransaction(TransactionData $transaction) 
     {
         $transaction->customer_id = $this->uuid;
-        event(new TransactionAddedEvent($transaction));
+        event(new TransactionAddedEvent($transaction->customer_id, $transaction->amount, $transaction->currency, $transaction->timestamp));
     }
 
     public static function uuid(string $uuid): ?Customer
     {
         return static::where('uuid', $uuid)->first();
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'customer_id', 'uuid');
     }
 }

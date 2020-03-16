@@ -19,7 +19,7 @@ final class CustomerAggregateRoot extends AggregateRoot
 
     public function addTransaction(TransactionData $transactionData) 
     {
-        $this->recordThat(new TransactionAddedEvent($transactionData));
+        $this->recordThat(new TransactionAddedEvent($transactionData->customer_id, $transactionData->amount, $transactionData->currency, $transactionData->timestamp));
 
         return $this;
     }

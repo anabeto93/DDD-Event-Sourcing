@@ -9,6 +9,7 @@ use Spatie\EventSourcing\Projectors\Projector;
 use Spatie\EventSourcing\Projectors\ProjectsEvents;
 use App\Events\Customer\CustomerCreatedEvent as DomainCustomerCreated;
 use App\Events\Customer\CustomerActivatedEvent as DomainCustomerActivated;
+use Carbon\Carbon;
 use Domain\Customer\Models\Transaction;
 use Domain\Customer\ValueObjects\CustomerData;
 
@@ -33,9 +34,16 @@ class CustomerTransactionsProjector implements Projector
 
     public function onTransactionAdded(TransactionAddedEvent $event) 
     {
-        $transaction = Transaction::create($event->transaction->toArray());
+        $data = [
+            'customer_id' => $event->customer_id,
+            'amount' => $event->amount,
+            'currency' => $event->currency,
+            'timestamp' => Carbon::createFromFormat('Y-m-d H:i:s', $event->timestamp),
+        ];
+
+        $transaction = Transaction::create($data);
         //make any other decisions regarding the transactions performed by the customer here
-        $customer = Customer::uuid($event->transaction->customer_id);
+        $customer = Customer::uuid($event->customer_id);
 
         if ($customer->transactions->count() == 1) { //that is their very first transaction
             //activate the customer

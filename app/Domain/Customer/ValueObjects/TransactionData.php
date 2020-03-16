@@ -13,8 +13,8 @@ class TransactionData extends DataTransferObject
     /** @var string|null $customer_email */
     public $customer_email;
 
-    /** @var int|null $id */
-    public $id;
+    /** @var string|int $transaction_id */
+    public $transaction_id;
 
     /** @var string $amount */
     public $amount;
@@ -22,18 +22,18 @@ class TransactionData extends DataTransferObject
     /** @var string $currency */
     public $currency;
 
-    /** @var string|null $created_at */
-    public $created_at;
+    /** @var string $timestamp */
+    public $timestamp;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
             'customer_id' => $request->input('customer_id'),
             'customer_email' => $request->input('customer_email'),
-            'id' => $request->input('id'),
+            'transaction_id' => $request->input('transaction_id'),
             'amount' => $request->input('amount'),
             'currency' => $request->input('currency'),
-            'created_at' => $request->input('created_at')
+            'timestamp' => $request->input('timestamp')
         ]);
     }
 }
