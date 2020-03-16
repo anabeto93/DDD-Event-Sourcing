@@ -15,7 +15,7 @@ final class MessageToCustomerReactor implements EventHandler
     use HandlesEvents;
 
     public function onMessageSentToCustomer(MessageSentToCustomerEvent $event)
-    {dd($event);
+    {
         $customer = Customer::uuid($event->customer_id);
 
         if ($event->type == 'flash') {

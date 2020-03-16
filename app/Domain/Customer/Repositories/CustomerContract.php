@@ -45,4 +45,10 @@ interface CustomerContract
      * @return Collection|null
      */
     public function nonActivated();
+
+    /**
+     * Send all activation messages
+     * @return void
+     */
+    public function sendActivationMessages(): void;
 }
