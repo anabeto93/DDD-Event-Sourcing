@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         \Interfaces\Console\Commands\Customer\CreateCustomerCommand::class,
         \Interfaces\Console\Commands\Customer\AddTransactionToCustomerCommand::class,
         \Interfaces\Console\Commands\Customer\SendPostActivationMessagesCommand::class,
+        \Interfaces\Console\Commands\Customer\SendNonActivationMessagesCommand::class,
     ];
 
     /**

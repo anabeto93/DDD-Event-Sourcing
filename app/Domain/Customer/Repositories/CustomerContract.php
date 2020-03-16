@@ -51,4 +51,10 @@ interface CustomerContract
      * @return void
      */
     public function sendActivationMessages(): void;
+
+    /**
+     * Send all non-activated customers messages
+     * @return void
+     */
+    public function sendNonActivationMessages(): void;
 }

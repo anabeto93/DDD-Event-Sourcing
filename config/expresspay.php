@@ -9,7 +9,12 @@ return [
             'second' => "Hi {first_name}; Got some bills to pay? Save some time & pay your DSTv, Ghana Water and ECG postpaid bills with ease on expressPay!",
             'third' => "Need some data? Login & get your internet data bundles instantly on expressPay. We’ve got MTN Fibre, Vodafone Broadband, Surfline, GLO, Busy 4G & more!",
         ],
-        'nonactivated' => [],
+        'nonactivated' => [
+            'first' => "{first_name}, let’s make life easy for you. Send money, get airtime, internet bundles & pay for bills with ease on expressPay! Here’s how youtu.be/TY-PkvPt9yc",
+            'second' => "Perform your first transaction & claim your GHS 5 welcome gift. Login & enjoy easy payments now! Valid within 7 days",
+            'third' => "Perform your first transaction & claim your GHS 5 welcome gift. Login & enjoy easy payments now! Valid within 7 days..",
+            'fourth' => "Perform your first transaction & claim your GHS 5 welcome gift. Login & enjoy easy payments now! Valid within 7 days..",
+        ],
     ],
     'notifications' => [
         'welcome' => "Welcome to expressPay! We're glad to have you on board.",
@@ -18,6 +23,11 @@ return [
             'second' => "Hi {first_name}; Got some bills to pay? Save some time & pay your DSTv, Ghana Water and ECG postpaid bills with ease on expressPay!",
             'third' => "Need some data? Login & get your internet data bundles instantly on expressPay. We’ve got MTN Fibre, Vodafone Broadband, Surfline, GLO, Busy 4G & more!",
         ],
-        'nonactivated' => [],
+        'nonactivated' => [
+            'first' => "{first_name}, let’s make life easy for you. Send money, get airtime, internet bundles & pay for bills with ease on expressPay! ",
+            'second' => "Perform your first transaction & claim your GHS 5 welcome gift. Login & enjoy easy payments now! Valid within 7 days",
+            'third' => "Perform your first transaction & claim your GHS 5 welcome gift. Login & enjoy easy payments now! Valid within 7 days..",
+            'fourth' => "Perform your first transaction & claim your GHS 5 welcome gift. Login & enjoy easy payments now! Valid within 7 days..",
+        ],
     ],
 ];
