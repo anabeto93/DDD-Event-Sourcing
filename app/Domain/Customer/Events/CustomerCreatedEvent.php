@@ -2,7 +2,6 @@
 
 namespace Domain\Customer\Events;
 
-use Domain\Customer\ValueObjects\CustomerData;
 use Spatie\EventSourcing\ShouldBeStored;
 
 final class CustomerCreatedEvent implements ShouldBeStored 

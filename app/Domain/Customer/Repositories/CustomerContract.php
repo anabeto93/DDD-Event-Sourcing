@@ -2,6 +2,7 @@
 
 namespace Domain\Customer\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Domain\Customer\ValueObjects\CustomerData;
 use Domain\Customer\ValueObjects\TransactionData;
 
@@ -32,4 +33,16 @@ interface CustomerContract
      * @return void
      */
     public function addTransaction(TransactionData $transaction): void;
+
+    /**
+     * Find all activated customers
+     * @return Collection|null
+     */
+    public function activated();
+
+    /**
+     * Find all non-activated customers
+     * @return Collection|null
+     */
+    public function nonActivated();
 }

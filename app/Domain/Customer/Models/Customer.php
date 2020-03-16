@@ -38,4 +38,34 @@ class Customer extends Model
     {
         return $this->hasMany(Transaction::class, 'customer_id', 'uuid');
     }
+
+    public function scopeActivated($query)
+    {
+        return $query->whereNotNull('activated_at');
+    }
+
+    public function scopeNonActivated($query)
+    {
+        return $query->whereNull('activated_at');
+    }
+
+    public function activatedMessages()
+    {
+        return $this->hasMany(ActivatedMessage::class, 'customer_id', 'uuid')->latest();
+    }
+
+    public function nonActivatedMessages()
+    {
+        return $this->hasMany(NonActivatedMessage::class, 'customer_id', 'uuid')->latest();
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(CustomerMessage::class, 'customer_id', 'uuid')->latest();
+    }
+
+    public function messageSent(string $class): bool 
+    {
+        return $this->activatedMessages()->where('class', $class)->exists() || $this->nonActivatedMessages()->where('class', $class)->exists();
+    }
 }

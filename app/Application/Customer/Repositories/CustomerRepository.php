@@ -54,4 +54,15 @@ class CustomerRepository implements CustomerContract
 
         return CustomerAggregateRoot::retrieve($customer->uuid);
     }
+
+
+    public function activated()
+    {
+        return Customer::activated()->cursor();
+    }
+
+    public function nonActivated()
+    {
+        return Customer::nonActivated()->cursor();
+    }
 }

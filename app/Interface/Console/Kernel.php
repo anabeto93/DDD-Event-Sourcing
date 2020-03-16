@@ -13,8 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        '\Interfaces\Console\Commands\Customer\CreateCustomerCommand',
-        '\Interfaces\Console\Commands\Customer\AddTransactionToCustomerCommand',
+        \Interfaces\Console\Commands\Customer\CreateCustomerCommand::class,
+        \Interfaces\Console\Commands\Customer\AddTransactionToCustomerCommand::class,
+        \Interfaces\Console\Commands\Customer\SendPostActivationMessagesCommand::class,
     ];
 
     /**
@@ -26,6 +27,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('customer:post-activation-messages')->daily();
+        $schedule->command('customer:non-activation-messages')->daily();
     }
 
     /**

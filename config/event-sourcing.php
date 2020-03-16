@@ -17,6 +17,7 @@ return [
      */
     'projectors' => [
         Domain\Customer\Projectors\CustomerTransactionsProjector::class,
+        Domain\Customer\Projectors\CustomerMessagesProjector::class,
         // App\Projectors\YourProjector::class
     ],
 
@@ -26,6 +27,9 @@ return [
      * Reactors can be registered in this array or a service provider.
      */
     'reactors' => [
+        Domain\Customer\Reactors\CustomerCreatedReactor::class,
+        Domain\Customer\Reactors\CustomerActivatedReactor::class,
+        Domain\Customer\Reactors\MessageToCustomerReactor::class,
         // App\Reactors\YourReactor::class
     ],
 
