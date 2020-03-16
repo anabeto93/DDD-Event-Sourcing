@@ -138,7 +138,7 @@ class CustomerRepository implements CustomerContract
 
         try {
             $customers->each(function($user) {
-                $days = now()->diffInDays($user->activated_at);
+                $days = now()->diffInDays($user->created_at);
 
                 if ($days >= 3 && $days < 14) {
                     //check if the message was already sent, else send it
