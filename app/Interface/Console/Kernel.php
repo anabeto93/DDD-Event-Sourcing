@@ -28,8 +28,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('customer:post-activation-messages')->daily();
-        $schedule->command('customer:non-activation-messages')->daily();
+        $schedule->command('customer:post-activation-messages')->dailyAt('09:00');
+        $schedule->command('customer:non-activation-messages')->dailyAt('09:00');
     }
 
     /**
