@@ -39,7 +39,7 @@ class CustomersTableSeeder extends Seeder
             });
 
             //create 3 customers who are 1 week old
-            foreach([3, 7, 14, 21, 28, 45, 90] as $day) {
+            foreach([3, 7, 13, 14, 20, 21, 28, 30, 45, 90] as $day) {
                 factory(Customer::class, 3)->states('nonactivated')->make([
                     'created_at' => now()->subDays($day),
                 ])->each(function($user) use($customer) {
@@ -55,8 +55,9 @@ class CustomersTableSeeder extends Seeder
                     $actual->save();
                 });
 
-                factory(Customer::class, 3)->states('activated')->make([
+                factory(Customer::class, 5)->states('activated')->make([
                     'created_at' => now()->subDays($day),
+                    'activated_at' => now()->subDays($day),
                 ])->each(function($user) use($customer) {
                     $cd = $user->toArray();
                     unset($cd['activated_at']);
@@ -88,6 +89,7 @@ class CustomersTableSeeder extends Seeder
 
                 factory(Customer::class, 5)->states('activated')->make([
                     'created_at' => now()->subDays($day+90),
+                    'activated_at' => now()->subDays($day+90),
                 ])->each(function($user) use($customer) {
                     $cd = $user->toArray();
                     unset($cd['activated_at']);
