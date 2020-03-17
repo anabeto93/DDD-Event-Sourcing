@@ -57,19 +57,28 @@ class CustomerRepository implements CustomerContract
     }
 
 
-    public function activated()
+    public function activated($duration=null)
     {
+        if ($duration) {
+            return Customer::activated()->whereDate('created_at', '>=', now()->subDays($duration)->setTime(0, 0, 0)->toDateTimeString())->cursor();
+        }
+
         return Customer::activated()->cursor();
     }
 
-    public function nonActivated()
+    public function nonActivated($duration=null)
     {
+        if ($duration) {
+            return Customer::nonActivated()->whereDate('created_at', '>=', now()->subDays($duration)->setTime(0, 0, 0)->toDateTimeString())->cursor();
+        }
+
         return Customer::nonActivated()->cursor();
     }
 
     public function sendActivationMessages(): void
     {
-        $customers = $this->activated();
+        $days_in_3_months_ago = now()->subMonths(3)->diffInDays(now());
+        $customers = $this->activated($days_in_3_months_ago);// accurate number of days over the last 3 months
 
         DB::beginTransaction();
 
@@ -132,7 +141,8 @@ class CustomerRepository implements CustomerContract
 
     public function sendNonActivationMessages(): void
     {
-        $customers = $this->nonActivated();
+        $days_in_3_months_ago = now()->subMonths(3)->diffInDays(now());
+        $customers = $this->nonActivated($days_in_3_months_ago);//to get the accurate number of days
 
         DB::beginTransaction();
 

@@ -36,15 +36,17 @@ interface CustomerContract
 
     /**
      * Find all activated customers
+     * @param int|null $duration
      * @return Collection|null
      */
-    public function activated();
+    public function activated($duration=null);
 
     /**
      * Find all non-activated customers
+     * @param int|null $duration
      * @return Collection|null
      */
-    public function nonActivated();
+    public function nonActivated($duration=null);
 
     /**
      * Send all activation messages
